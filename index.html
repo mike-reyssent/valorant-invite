@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayo Main Valorant!</title>
+    <title>Ajakan Main Valorant!</title>
     <style>
         body {
             margin: 0;
@@ -11,16 +11,15 @@
             background: linear-gradient(120deg, #ff416c, #ff4b2b);
             color: white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            flex-direction: column;
             text-align: center;
+            min-height: 100vh;
             overflow: hidden;
         }
         h1 {
             font-size: 3em;
-            margin-bottom: 20px;
             animation: pulse 1.5s infinite;
         }
         @keyframes pulse {
@@ -28,66 +27,133 @@
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
-        p {
-            font-size: 1.5em;
-            margin-bottom: 30px;
+        select, button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
         }
-        #countdown {
-            font-size: 2em;
-            margin-bottom: 20px;
+        select {
+            background-color: #fff;
+            color: #333;
         }
         button {
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 10px;
             background-color: #ffd700;
             color: #333;
-            cursor: pointer;
             transition: transform 0.2s, background-color 0.2s;
         }
         button:hover {
             transform: scale(1.1);
             background-color: #ffa500;
         }
+        #countdown {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: yellow;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: explode 1s forwards;
+        }
+        @keyframes explode {
+            0% { transform: scale(1) translate(0,0); opacity: 1; }
+            100% { transform: scale(3) translate(var(--x), var(--y)); opacity: 0; }
+        }
     </style>
 </head>
 <body>
-    <h1>🎮 Ayo Main Valorant! 🔫</h1>
-    <p>Rasakan serunya bermain bersama teman-teman!</p>
-    <div id="countdown">Loading...</div>
-    <button id="joinBtn">Join Sekarang!</button>
+    <h1>🎮 Ajakan Main Valorant! 🔫</h1>
+    <p>Halo <span style="color: yellow;">Imam</span> dan <span style="color: yellow;">Swido</span>! Pilih Agent kalian:</p>
+    
+    <div>
+        <select id="agentImam">
+            <option value="">-- Pilih Agent Imam --</option>
+            <option value="Jett">Jett</option>
+            <option value="Phoenix">Phoenix</option>
+            <option value="Sage">Sage</option>
+            <option value="Reyna">Reyna</option>
+            <option value="Sova">Sova</option>
+            <option value="Killjoy">Killjoy</option>
+        </select>
+
+        <select id="agentSwido">
+            <option value="">-- Pilih Agent Swido --</option>
+            <option value="Jett">Jett</option>
+            <option value="Phoenix">Phoenix</option>
+            <option value="Sage">Sage</option>
+            <option value="Reyna">Reyna</option>
+            <option value="Sova">Sova</option>
+            <option value="Killjoy">Killjoy</option>
+        </select>
+    </div>
+
+    <button id="joinBtn">Gabung Sekarang!</button>
+    <div id="countdown"></div>
+    <div id="message"></div>
 
     <script>
+        const agentImam = document.getElementById('agentImam');
+        const agentSwido = document.getElementById('agentSwido');
         const joinBtn = document.getElementById('joinBtn');
-        joinBtn.addEventListener('click', () => {
-            alert("Sip! Siapkan headset-mu dan mari bermain Valorant jam 10.30!");
-        });
-
-        // Countdown Timer
+        const message = document.getElementById('message');
         const countdownEl = document.getElementById('countdown');
 
+        // Countdown Timer
         function updateCountdown() {
             const now = new Date();
             let gameTime = new Date();
             gameTime.setHours(10, 30, 0, 0); // jam 10:30 pagi
-
-            // Jika sudah lewat jam 10:30 hari ini, set ke besok
-            if (now > gameTime) {
-                gameTime.setDate(gameTime.getDate() + 1);
-            }
+            if (now > gameTime) gameTime.setDate(gameTime.getDate() + 1);
 
             const diff = gameTime - now;
-
             const hours = Math.floor(diff / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            countdownEl.textContent = `${hours}h ${minutes}m ${seconds}s`;
+            countdownEl.textContent = `Mulai dalam: ${hours}h ${minutes}m ${seconds}s`;
         }
-
         setInterval(updateCountdown, 1000);
         updateCountdown();
+
+        // Tombol gabung
+        joinBtn.addEventListener('click', () => {
+            const agent1 = agentImam.value;
+            const agent2 = agentSwido.value;
+
+            if(agent1 && agent2) {
+                message.textContent = `Mantap! Imam pilih ${agent1} dan Swido pilih ${agent2}. Siap bertempur jam 10.30! 🔥`;
+                createFireworks(20);
+            } else {
+                message.textContent = "Pilih Agent kalian dulu, Imam & Swido! 😉";
+            }
+        });
+
+        // Fun fireworks effect
+        function createFireworks(count) {
+            for(let i=0; i<count; i++){
+                const firework = document.createElement('div');
+                firework.classList.add('firework');
+                firework.style.left = (window.innerWidth/2) + 'px';
+                firework.style.top = (window.innerHeight/2) + 'px';
+                const x = (Math.random()-0.5)*300 + 'px';
+                const y = (Math.random()-0.5)*300 + 'px';
+                firework.style.setProperty('--x', x);
+                firework.style.setProperty('--y', y);
+                document.body.appendChild(firework);
+                setTimeout(() => firework.remove(), 1000);
+            }
+        }
     </script>
 </body>
 </html>
