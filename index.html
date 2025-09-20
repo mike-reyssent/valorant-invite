@@ -19,18 +19,6 @@
             overflow-x: hidden;
         }
 
-        /* Logo Valorant */
-        #valorantLogo {
-            width: 150px;
-            margin: 20px 0;
-            animation: logoBounce 2s infinite;
-        }
-
-        @keyframes logoBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
         h1 {
             font-size: 3em;
             animation: pulse 1.5s infinite;
@@ -82,34 +70,6 @@
             text-shadow: 0 0 10px cyan;
         }
 
-        /* Agent images */
-        .agents {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .agent {
-            margin: 10px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-radius: 15px;
-            overflow: hidden;
-            width: 120px;
-            height: 120px;
-        }
-
-        .agent img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .agent:hover {
-            transform: scale(1.2);
-            box-shadow: 0 0 20px #ffd700;
-        }
-
         /* Firework */
         .firework {
             position: absolute;
@@ -145,47 +105,66 @@
     </style>
 </head>
 <body>
-    <!-- Valorant Logo -->
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/VALORANT_icon.svg" id="valorantLogo" alt="Valorant Logo">
-
     <h1>🎮 Ajakan Main Valorant! 🔫</h1>
     <p>Halo <span style="color: yellow;">Imam</span> dan <span style="color: yellow;">Swido</span>! Pilih Agent kalian:</p>
 
     <div>
         <select id="agentImam">
             <option value="">-- Pilih Agent Imam --</option>
-            <option value="Jett">Jett</option>
-            <option value="Phoenix">Phoenix</option>
-            <option value="Sage">Sage</option>
-            <option value="Reyna">Reyna</option>
-            <option value="Sova">Sova</option>
+            <option value="Brimstone">Brimstone</option>
+            <option value="Viper">Viper</option>
+            <option value="Omen">Omen</option>
             <option value="Killjoy">Killjoy</option>
+            <option value="Cypher">Cypher</option>
+            <option value="Sova">Sova</option>
+            <option value="Sage">Sage</option>
+            <option value="Phoenix">Phoenix</option>
+            <option value="Jett">Jett</option>
+            <option value="Reyna">Reyna</option>
+            <option value="Raze">Raze</option>
+            <option value="Breach">Breach</option>
+            <option value="Skye">Skye</option>
+            <option value="Yoru">Yoru</option>
+            <option value="Astra">Astra</option>
+            <option value="KAY/O">KAY/O</option>
+            <option value="Chamber">Chamber</option>
+            <option value="Neon">Neon</option>
+            <option value="Fade">Fade</option>
+            <option value="Harbor">Harbor</option>
+            <option value="Gekko">Gekko</option>
+            <option value="Deadlock">Deadlock</option>
         </select>
 
         <select id="agentSwido">
             <option value="">-- Pilih Agent Swido --</option>
-            <option value="Jett">Jett</option>
-            <option value="Phoenix">Phoenix</option>
-            <option value="Sage">Sage</option>
-            <option value="Reyna">Reyna</option>
-            <option value="Sova">Sova</option>
+            <option value="Brimstone">Brimstone</option>
+            <option value="Viper">Viper</option>
+            <option value="Omen">Omen</option>
             <option value="Killjoy">Killjoy</option>
+            <option value="Cypher">Cypher</option>
+            <option value="Sova">Sova</option>
+            <option value="Sage">Sage</option>
+            <option value="Phoenix">Phoenix</option>
+            <option value="Jett">Jett</option>
+            <option value="Reyna">Reyna</option>
+            <option value="Raze">Raze</option>
+            <option value="Breach">Breach</option>
+            <option value="Skye">Skye</option>
+            <option value="Yoru">Yoru</option>
+            <option value="Astra">Astra</option>
+            <option value="KAY/O">KAY/O</option>
+            <option value="Chamber">Chamber</option>
+            <option value="Neon">Neon</option>
+            <option value="Fade">Fade</option>
+            <option value="Harbor">Harbor</option>
+            <option value="Gekko">Gekko</option>
+            <option value="Deadlock">Deadlock</option>
         </select>
     </div>
 
     <button id="joinBtn">Gabung Sekarang!</button>
     <div id="countdown"></div>
     <div id="message"></div>
-
-    <!-- Agent showcase -->
-    <div class="agents">
-        <div class="agent"><img src="https://static.wikia.nocookie.net/valorant/images/3/33/Jett_icon.png" alt="Jett"></div>
-        <div class="agent"><img src="https://static.wikia.nocookie.net/valorant/images/9/99/Phoenix_icon.png" alt="Phoenix"></div>
-        <div class="agent"><img src="https://static.wikia.nocookie.net/valorant/images/2/22/Sage_icon.png" alt="Sage"></div>
-        <div class="agent"><img src="https://static.wikia.nocookie.net/valorant/images/0/0e/Reyna_icon.png" alt="Reyna"></div>
-        <div class="agent"><img src="https://static.wikia.nocookie.net/valorant/images/5/53/Sova_icon.png" alt="Sova"></div>
-        <div class="agent"><img src="https://static.wikia.nocookie.net/valorant/images/4/4b/Killjoy_icon.png" alt="Killjoy"></div>
-    </div>
 
     <script>
         const agentImam = document.getElementById('agentImam');
@@ -224,9 +203,9 @@
             }
         });
 
-        // Fun fireworks effect
+        // Fireworks
         function createFireworks(count) {
-            for(let i=0; i<count; i++){
+            for(let i=0;i<count;i++){
                 const firework = document.createElement('div');
                 firework.classList.add('firework');
                 firework.style.left = (window.innerWidth/2) + 'px';
